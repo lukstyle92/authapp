@@ -1,0 +1,12 @@
+<h1>Buscando: <small>{{termino}}</small></h1>
+<hr />
+
+  <!--div class="row animated fadeIn fast" *ngIf="!recetas && !loading">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        No existen resultados para <strong>{{ termino }}</strong>
+      </div>
+    </div>
+  </div-->
+<app-callback *ngIf="loading"></app-callback>
+<app-buscador-recetas *ngIf="!loading" [recetas]="recetas" [comprobador]="comprobador"></app-buscador-recetas>

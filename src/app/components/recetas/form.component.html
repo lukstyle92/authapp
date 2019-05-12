@@ -1,0 +1,146 @@
+<div class="card bg-dark text-white">
+  <div class="card-header">
+    {{ titulo }}
+  </div>
+  <div class="card-body">
+    <form #recetaForm="ngForm">
+      <div class="form-group row">
+        <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+        <div class="col-sm-6">
+          <input type="text" name="nombre" class="form-control" [(ngModel)]="receta.nombre" placeholder="Introduzca el nombre de la receta" #nombre="ngModel" required minlength="4" [ngClass]="{
+              'is-invalid': nombre.invalid,
+              'is-valid': nombre.valid
+            }" />
+          <!-- required minlength="4"-->
+          <div class="invalid-feedback" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+            <div class="" *ngIf="nombre?.errors.required">
+              Nombre es obligatorio.
+            </div>
+            <div class="" *ngIf="nombre?.errors.minlength">
+              La longitud del nombre debe ser de al menos 4 caracteres.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="tipo" class="col-form-label col-sm-2">Tipo</label>
+        <div class="col-sm-6">
+          <select name="tipo" class="custom-select form control" [(ngModel)]="receta.tipo" #tipo="ngModel" required [ngClass]="{ 'is-invalid': tipo.invalid, 'is-valid': tipo.valid }">
+            <option *ngFor="let tipo of tipos" [value]="tipo">{{
+              tipo
+            }}</option>
+          </select>
+          <!-- required -->
+          <div class="invalid-feedback" *ngIf="tipo.invalid && (tipo.dirty || tipo.touched)">
+            <div class="" *ngIf="tipo?.errors.required">
+              Tipo es obligatorio.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="dificultad" class="col-form-label col-sm-2" required>Dificultad</label>
+        <div class="col-sm-6">
+          <select name="dificultad" class="custom-select form control" [(ngModel)]="receta.dificultad" #dificultad="ngModel" required [ngClass]="{
+              'is-invalid': dificultad.invalid,
+              'is-valid': dificultad.valid
+            }">
+            <option *ngFor="let dificultad of dificultades" [value]="dificultad">{{ dificultad }}</option>
+          </select>
+          <!--input type="text" name="dificultad" class="form-control" [(ngModel)]="receta.dificultad" #dificultad="ngModel"-->
+          <!-- required dificultad -->
+          <div class="invalid-feedback" *ngIf="
+              dificultad.invalid && (dificultad.dirty || dificultad.touched)
+            ">
+            <div class="" *ngIf="dificultad?.errors.required">
+              Seleccione la dificultad.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="comensales" class="col-form-label col-sm-2" required>Comensales</label>
+        <div class="col-sm-6">
+          <select name="comensales" class="custom-select form control" [(ngModel)]="receta.comensales" #comensales="ngModel" required [ngClass]="{
+              'is-invalid': comensales.invalid,
+              'is-valid': comensales.valid
+            }">
+            <option *ngFor="let comensales of cantidadComensales" [value]="comensales">{{ comensales }}</option>
+          </select>
+          <!--input type="text" name="comensales" class="form-control" [(ngModel)]="receta.comensales" #comensales="ngModel"-->
+          <!-- required comensales -->
+          <div class="invalid-feedback" *ngIf="
+              comensales.invalid && (comensales.dirty || comensales.touched)
+            ">
+            <div class="" *ngIf="comensales?.errors.required">
+              Seleccione cantidad de comensales.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="preparacion" class="col-form-label col-sm-2">Preparación</label>
+        <div class="col-sm-6">
+          <!--input type="text" name="preparacion" class="form-control" [(ngModel)]="receta.preparacion" #preparacion="ngModel"-->
+          <textarea name="preparacion" class="form-control" placeholder="Introduzca el modo de preparación" [(ngModel)]="receta.preparacion" #preparacion="ngModel" required minlength="10" [ngClass]="{
+              'is-invalid': preparacion.invalid,
+              'is-valid': preparacion.valid
+            }"></textarea>
+          <!-- required preparacion -->
+          <div class="invalid-feedback" *ngIf="
+              preparacion.invalid && (preparacion.dirty || preparacion.touched)
+            ">
+            <div class="" *ngIf="preparacion?.errors.required">
+              Debe especificar el modo de preparación.
+            </div>
+            <div class="" *ngIf="preparacion?.errors.minlength">
+              Debe especificar el modo de preparación con al menos 10
+              caracteres.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="ingredientes" class="col-form-label col-sm-2">Ingredientes</label>
+        <div class="col-sm-6">
+          <textarea name="ingredientes" class="form-control" placeholder="Introduzca los ingredientes necesarios para la receta" [(ngModel)]="receta.ingredientes" #ingredientes="ngModel" required [ngClass]="{
+              'is-invalid': ingredientes.invalid,
+              'is-valid': ingredientes.valid
+            }"></textarea>
+          <!-- required ingredientes -->
+          <div class="invalid-feedback" *ngIf="
+              ingredientes.invalid &&
+              (ingredientes.dirty || ingredientes.touched)
+            ">
+            <div class="" *ngIf="ingredientes?.errors.required">
+              Debes especificar los ingredientes.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="path" class="col-form-label col-sm-2">Fotos</label>
+        <div class="col-sm-6">
+          <div class="custom-file">
+            <input (change)="seleccionarFoto($event)" type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" />
+            <label class="custom-file-label" for="inputGroupFile04">Seleccionar foto</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <button role="button" class="btn btn-primary" (click)="create()" *ngIf="!receta.id; else elseBlock" [disabled]="!recetaForm.form.valid && !creando">
+            Crear
+          </button>
+          <ng-template #elseBlock>
+            <button role="button" class="btn btn-primary" (click)="update()" [disabled]="!recetaForm.form.valid">
+              Editar
+            </button>
+          </ng-template>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

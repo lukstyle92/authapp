@@ -1,0 +1,38 @@
+<app-callback *ngIf="loading"></app-callback>
+<div class="alert alert-info" *ngIf="!receta && !loading">
+  No hay registros en la base de datos.
+</div>
+<div class="col-md-12">
+  <div *ngIf="receta">
+    <h1>{{receta.nombre | uppercase}}
+      <!--small>aqui ira fecha de actualización
+      ({{heroe.aparicion | date:'y'}})</small-->
+    </h1>
+    <hr>
+
+    <div class="row animated fadeIn fast">
+      <div class="col-md-6">
+        <div *ngIf="comprobador; else elseBlock">
+          <img [src]="receta.path | noimage" alt="{{ receta.path }}" class="card-img-top mb-3" />
+        </div>
+        <ng-template #elseBlock>
+          <img src="http://localhost:8080/rest/uploads/img/{{ receta.path }}" alt="{{ receta.path }}" class="card-img-top mb-3" />
+        </ng-template>
+        <a href="recetas" class="btn btn-outline-danger btn-block">Regresar</a>
+      </div>
+      <div class="col-md-6">
+        <ul>
+          <h3>Ingredientes:</h3>
+          <li *ngFor="let ingr of ingredientes">{{ ingr }}</li>
+        </ul>
+      </div>
+      <div class="col-md-12">
+        <hr>
+        <h3>Pasos a seguir:</h3>
+        <ol>
+          <li *ngFor="let prep of preparacion">{{ prep }}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="card border-primary mb-6">
+  <div class="card-header">Recetas</div>
+  <div class="card-body text-primary">
+    <h5 class="card-title">Todas las recetas</h5>
+    <div class="alert alert-info" *ngIf="recetas?.length == 0">
+      No hay registros en la base de datos.
+    </div>
+    <app-callback *ngIf="loading"></app-callback>
+    <div class="card-columns" *ngIf="recetas?.length > 0 && !loading">
+      <div class="card animated fadeIn fast" *ngFor="let receta of recetas; index as i">
+        <div *ngIf="comprobador[i]; else elseBlock">
+          <img [src]="receta.path | noimage" alt="{{ receta.path }}" class="card-img-top" />
+        </div>
+        <ng-template #elseBlock>
+          <img src="http://localhost:8080/rest/uploads/img/{{ receta.path }}" alt="{{ receta.path }}" class="card-img-top" />
+        </ng-template>
+        <div class="card-body shadow-sm">
+          <h5 class="card-title title">{{ receta.nombre }}</h5>
+          <hr />
+          <p class="card-text">{{ receta.dificultad }}</p>
+          <hr />
+          <p class="card-text">Para {{ receta.comensales }} comensales.</p>
+          <!--  <button type="button" class="btn btn-outline-primary btn-block">
+            Ver más...
+          </button> -->
+          <a [routerLink]="['/receta', receta.id]" class="btn btn-outline-primary stretched-link">Ver receta</a>
+        </div>
+      </div>
+    </div>
+    <paginator-nav *ngIf="paginador" [paginador]="paginador"></paginator-nav>
+  </div>
+</div>
